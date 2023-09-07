@@ -1,72 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
-  <head>
-
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link rel='shortcut icon' type='image/x-icon' href='https://n11scdn.akamaized.net/static/favicon.ico' />
 
-    <title>{% block title %}{% endblock %}</title>
+    {% block extra_link %} {% endblock %}
 
+    <title> {% block title %}  {% endblock title %}</title>
+</head>
 
-    {% block link %} {% endblock  %}
+<body>
+    {% block header %}
+    {% endblock  %}
 
+    {% block content %}
+    {% endblock%}
 
--->
-    </head>
-    
-    <body>
-        {% block header %}{% endblock  %}
+    <!-- jQuery -->
+    <script src="{% static 'home/js/jquery-2.1.0.min.js' %}"></script>
 
-            
-        {% block content %}
-        
-        
-        {% endblock%}
-  
+    <!-- Bootstrap -->
+    <script src="{% static 'home/js/popper.js' %}"></script>
+    <script src="{% static 'home/js/bootstrap.min.js' %}"></script>
 
-        <!-- jQuery -->
-        <script src="{% static 'home/js/jquery-2.1.0.min.js' %}"></script>
+    <!-- Plugins -->
+    <script src="{% static 'home/js/owl-carousel.js' %}"></script>
+    <script src="{% static 'home/js/accordions.js' %}"></script>
+    <script src="{% static 'home/js/datepicker.js' %}"></script>
+    <script src="{% static 'home/js/scrollreveal.min.js' %}"></script>
+    <script src="{% static 'home/js/waypoints.min.js' %}"></script>
+    <script src="{% static 'home/js/jquery.counterup.min.js' %}"></script>
+    <script src="{% static 'home/js/imgfix.min.js' %}"></script> 
+    <script src="{% static 'home/js/slick.js' %}"></script> 
+    <script src="{% static 'home/js/lightbox.js' %}"></script> 
+    <script src="{% static 'home/js/isotope.js' %}"></script> 
 
-        <!-- Bootstrap -->
-        <script src="{% static 'home/js/popper.js' %}"></script>
-        <script src="{% static 'home/js/bootstrap.min.js' %}"></script>
+    <!-- Global Init -->
+    <script src="{% static 'home/js/custom.js' %}"></script>
 
-        <!-- Plugins -->
-        <script src="{% static 'home/js/owl-carousel.js' %}"></script>
-        <script src="{% static 'home/js/accordions.js' %}"></script>
-        <script src="{% static 'home/js/datepicker.js' %}"></script>
-        <script src="{% static 'home/js/scrollreveal.min.js' %}"></script>
-        <script src="{% static 'home/js/waypoints.min.js' %}"></script>
-        <script src="{% static 'home/js/jquery.counterup.min.js' %}"></script>
-        <script src="{% static 'home/js/imgfix.min.js' %}"></script> 
-        <script src="{% static 'home/js/slick.js' %}"></script> 
-        <script src="{% static 'home/js/lightbox.js' %}"></script> 
-        <script src="{% static 'home/js/isotope.js' %}"></script> 
-        
-        <!-- Global Init -->
-        <script src="{% static 'home/js/custom.js' %}"></script>
-
-        <script>
-
-            $(function() {
-                var selectedClass = "";
-                $("p").click(function(){
+    <script>
+        $(function() {
+            var selectedClass = "";
+            $("p").click(function(){
                 selectedClass = $(this).attr("data-rel");
                 $("#portfolio").fadeTo(50, 0.1);
-                    $("#portfolio div").not("."+selectedClass).fadeOut();
+                $("#portfolio div").not("."+selectedClass).fadeOut();
                 setTimeout(function() {
-                $("."+selectedClass).fadeIn();
-                $("#portfolio").fadeTo(50, 1);
+                    $("."+selectedClass).fadeIn();
+                    $("#portfolio").fadeTo(50, 1);
                 }, 500);
-                    
-                });
             });
-
-        </script>
-        {% block footer %} {% endblock  %}
-    </body>
-    </html>
+        });
+    </script>
+    {% block footer %} {% endblock  %}
+</body>
+</html>

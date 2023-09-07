@@ -1,7 +1,9 @@
 from django.shortcuts import render
+from .models import Setting
 
 # Create your views here.
 
 def index(request):
-    
-    return render(request, "home/index.html")
+    setting = Setting.objects.get()
+    context = {"setting":setting}
+    return render(request, "home/index.html", context)

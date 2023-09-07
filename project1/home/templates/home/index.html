@@ -1,31 +1,31 @@
-{% include 'home/homebase.html' %}
+{% extends 'home/homebase.html' %}
 {% load static %}
 
-{% block  title%} Anasayfa {% endblock  %}
 
-{% block link %}
+{% block extra_link %}
+<link rel="stylesheet" type="text/css" href="{% static 'home/css/bootstrap.min.css' %}">
 
-    <link rel="stylesheet" type="text/css" href="{% static 'home/css/bootstrap.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'home/css/font-awesome.css' %}">
 
-    <link rel="stylesheet" type="text/css" href="{% static 'home/css/font-awesome.css' %}">
+<link rel="stylesheet" href="{% static 'home/css/templatemo-hexashop.css' %}">
 
-    <link rel="stylesheet" href="{% static 'home/css/templatemo-hexashop.css' %}">
+<link rel="stylesheet" href="{% static 'home/css/owl-carousel.css' %}">
 
-    <link rel="stylesheet" href="{% static 'home/css/owl-carousel.css' %}">
-
-    <link rel="stylesheet" href="{% static 'home/css/lightbox.css' %}">
+<link rel="stylesheet" href="{% static 'home/css/lightbox.css' %}">
 
 {% endblock %}
-    
-{% block header %} {% include 'home/header.html' %} {%endblock%}
 
-    {% block content %}
-  
-                {% include 'home/banner.html' %}
-                    
-                {% include 'home/latest.html' %}
-        
-    {% endblock%}
 
-    {% block footer %}{% include 'home/footer.html' %}{% endblock  %}
+{% block title %}{{ setting.title }}{% endblock title%}
 
+
+
+
+{% block header %} {% include 'home/header.html' %} {% endblock %}
+
+{% block content %}
+    {% include 'home/banner.html' %}
+    {% include 'home/latest.html' %}
+{% endblock %}
+
+{% block footer %}{% include 'home/footer.html' %}{% endblock %}
