@@ -1,0 +1,47 @@
+{% extends 'home/homebase.html' %}
+{% load static %}
+
+
+
+
+{% block title %} Referanslarımız | {{ setting.company }}{% endblock title%}
+
+
+
+
+{% block header %} {% include 'home/header.html' %} {% endblock %}
+
+{% block content %}
+
+    <!-- ***** Main Banner Area Start ***** -->
+    <div class="page-heading about-page-heading" id="top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="inner-content">
+                        <h2>Referanslarımız</h2>
+                        <span>Awesome, clean &amp; creative HTML5 Template</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ***** Main Banner Area End ***** -->
+
+
+<!-- ***** Subscribe Area Starts ***** -->
+<div class="subscribe" style=" display: flex;  justify-content: center; align-items: center;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-heading">
+                    <h1>{{setting.referances|safe}}</h1>
+                </div>
+            </div>
+        </div>    
+    </div>   
+</div>
+<!-- ***** Subscribe Area Ends ***** -->
+{% endblock %}
+
+{% block footer %}{% include 'home/footer.html' %}{% endblock %}
