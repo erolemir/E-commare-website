@@ -127,7 +127,7 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-MEDIA_URL = 'uploads/'
+MEDIA_URL = '/uploads/images/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
 
 SITE_ID = 1
@@ -138,7 +138,7 @@ SITE_ID = 1
 
 CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
 
-CKEDITOR_UPLOAD_PATH = 'uploads/image'
+CKEDITOR_UPLOAD_PATH = 'image/'
 CKEDITOR_IMAGE_BACKEND = "pillow"
 
 CKEDITOR_CONFIGS = {

@@ -1,0 +1,116 @@
+{% extends 'home/homebase.html' %}
+{% load static %}
+
+
+
+
+{% block title %} {{ urunler.title }}{% endblock title%}
+
+
+
+
+{% block header %} {% include 'home/header.html' %} {% endblock %}
+
+{% block content %}
+
+    
+
+     <!-- ***** Main Banner Area Start ***** -->
+     <div class="page-heading" id="top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="inner-content">
+                        <h2>Ürün Detay Sayfası</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ***** Main Banner Area End ***** -->
+
+
+    <!-- ***** Product Area Starts ***** -->
+    <section class="section" id="product">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-lg-8">
+                <div class="left-images">
+
+                    <img src="{{urunler.image.url}}" alt="" >
+                    
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="right-content">
+                    <h4>{{urunler.title}}</h4>
+                    <span class="price">{{urunler.price}}₺</span>
+                    <ul class="stars">
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                    </ul>
+                    <span>{{urunler.amount}} adet kaldı.</span>
+                    <div class="quote">
+                        <i class="fa fa-quote-left"></i><p>{{urunler.description}}</p>
+                    </div>
+                    <div class="quantity-content">
+                        <div class="left-content">
+                            <h6>Adet</h6>
+                        </div>
+                        <div class="right-content">
+                            <div class="quantity buttons_added">
+                                <input type="button" value="-" class="minus"><input type="number" step="1" min="1" max="{{urunler.amount}}" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" pattern="" inputmode=""><input type="button" value="+" class="plus">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="total">
+                        <h4>{{urunler.price}}₺</h4>
+                        <div class="main-border-button"><a href="#">Satın Al</a></div>
+                    </div>
+                </div>
+                {% for resim in resimler%}
+                <div class="card" style="width: 10rem; margin-top:50px;">
+                    <img src="{{resim.images.url}}" class="card-img-top" alt="...">
+                </div>
+                {% endfor %}
+
+            </div>
+            </div>
+        </div>
+    </section>
+    <!-- ***** Product Area Ends ***** -->
+    <!-- Add this script block at the end of your HTML template, just before the closing </body> tag -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.minus').click(function() {
+            var quantityInput = $(this).parent().find('input[name="quantity"]');
+            var currentQuantity = parseInt(quantityInput.val(), 10);
+            
+            if (currentQuantity > 1) {
+                quantityInput.val(currentQuantity - 1);
+            }
+        });
+
+        $('.plus').click(function() {
+            var quantityInput = $(this).parent().find('input[name="quantity"]');
+            var currentQuantity = parseInt(quantityInput.val(), 10);
+            var maxQuantity = parseInt(quantityInput.attr('max'), 10);
+            
+            if (currentQuantity < maxQuantity) {
+                quantityInput.val(currentQuantity + 1);
+            }
+        });
+    });
+</script>
+
+{% endblock %}
+
+{% block footer %}{% include 'home/footer.html' %}{% endblock %}
+
+
+

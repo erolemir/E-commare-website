@@ -19,7 +19,12 @@ class Category(models.Model):
     
     
     def __str__(self):
-        return self.title
+        full_path = [self.title]
+        k = self.parent
+        while k is not None:
+            full_path.append(k.title)
+            k = k.parent
+        return '-'.join(full_path[::-1])
     
 class Product(models.Model):
     STATUS= (
@@ -33,6 +38,7 @@ class Product(models.Model):
     image = models.ImageField(blank=True, upload_to='images/')
     price = models.FloatField()
     amount = models.IntegerField()
+    slug = models.SlugField(default="Kıyafet")
     detail = RichTextUploadingField()
     status = models.CharField(max_length=10, choices=STATUS)    
     create_at = models.DateTimeField(auto_now_add=True)
