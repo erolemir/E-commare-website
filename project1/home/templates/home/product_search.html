@@ -1,0 +1,76 @@
+
+{% extends 'home/homebase.html' %}
+{% load static %}
+
+
+
+
+{% block title %} {{ category.name }}{% endblock title%}
+
+
+
+
+{% block header %} {% include 'home/header.html' %} {% endblock %}
+
+{% block content %}
+        <!-- ***** Main Banner Area Start ***** -->
+        <div class="page-heading" id="top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="inner-content">
+                            <h2>Ürünlerimize Göz Atın</h2>
+                            <span>Design By &amp; Emirhan Erol</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ***** Main Banner Area End ***** -->
+        <link rel="stylesheet" href="{% static 'home/css/search.css' %}">
+            <div class="center-content" style="margin-bottom:50px">
+                <form action="/search/" method="post">
+                    {% csrf_token %}
+                    <input name="query" type="text" placeholder="">
+                    <button type="submit"></button>
+                </form>
+            </div>
+    
+        <!-- ***** Products Area Start ***** -->
+<section class="section" id="products">
+<div class="container" >
+    <div class="row">
+        {% for urun in products %}
+        <div class="col-lg-4" >
+            <div class="item" >
+                <div class="thumb" >
+                    <div class="hover-content">
+                        <ul>
+                            <li><a href="/urunler/{{urun.id}}"><i class="fa fa-eye"></i></a></li>
+                            <li><a href="single-product.html"><i class="fa fa-star"></i></a></li>
+                            <li><a href="/addtocard/{{urun.id}}"><i class="fa fa-shopping-cart"></i></a></li>
+                        </ul>
+                    </div>
+                    <img src="{{urun.image.url}}" alt="">
+                </div>
+                <div class="down-content">
+                    <h4>{{urun.title}}</h4>
+                    <span>{{urun.price}}₺</span>
+                    <ul class="stars">
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+</section>
+
+{% endblock %}
+
+{% block footer %}{% include 'home/footer.html' %}{% endblock %}

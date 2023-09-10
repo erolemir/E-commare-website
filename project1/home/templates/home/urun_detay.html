@@ -46,13 +46,6 @@
                 <div class="right-content">
                     <h4>{{urunler.title}}</h4>
                     <span class="price">{{urunler.price}}₺</span>
-                    <ul class="stars">
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                    </ul>
                     <span>{{urunler.amount}} adet kaldı.</span>
                     <div class="quote">
                         <i class="fa fa-quote-left"></i><p>{{urunler.description}}</p>
@@ -72,19 +65,138 @@
                         <div class="main-border-button"><a href="#">Satın Al</a></div>
                     </div>
                 </div>
-                {% for resim in resimler%}
-                <div class="card" style="width: 10rem; margin-top:50px;">
-                    <img src="{{resim.images.url}}" class="card-img-top" alt="...">
-                </div>
+                {% for resim in resimler %}
+                    <div class="card" style="width: 10rem; margin-top: 150px;">
+                        <img src="{{ resim.images.url }}" class="card-img-top enlarge-image" alt="...">
+                    </div>
                 {% endfor %}
+
+                <style>
+                    .enlarge-image {
+                        transition: transform 0.2s; /* Add a smooth transition effect */
+                    }
+                
+                    .enlarge-image:hover {
+                        transform: scale(2); /* Enlarge the image to 120% when hovered */
+                        cursor: pointer;
+                         /* Change the cursor to indicate interactivity */
+                    }
+                </style>
+                
+
 
             </div>
             </div>
         </div>
     </section>
     <!-- ***** Product Area Ends ***** -->
+
+    <!-- ***** Comment Area Start ***** -->
+
+    <link rel="stylesheet" href="{% static 'home/css/comment.css' %}" />
+
+    <div class="container">
+        <div id="reviews" class="review-section">
+            
+            
+
+                <div class="col-md-12">
+                    <div class="d-flex align-items-center justify-content-between mb-4 col-md-12">
+                        <h4>Düşüncelerinizi Belirtiniz</h4>
+                        {%if messages %}
+                            {%for message in messages %}
+                                <div class="alert alert-{{message.tags}}" role="alert">
+                                    {{message}}
+                                </div>
+                            {%endfor%}
+                        {%endif%}
+                    </div>
+                    <form action="/product/addcomment/{{urunler.id}}" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input class="input" type="text" name="subject" id="id_subject" placeholder="Başlık">
+            
+                    </div>
+            
+                    <div class="form-group">
+                        <textarea class="input" name="comment" id="id_comment" placeholder="Yorumunuz"></textarea>
+                    </div>
+            
+                    <div class="form-group">
+                        <div class="input-rating"></div>
+                        <strong>Your Rating:</strong>
+                        <div class="stars">
+                            <input type="radio" id="star5" name="rate" value="5"><label for="star5"></label>
+                            <input type="radio" id="star4" name="rate" value="4"><label for="star4"></label>
+                            <input type="radio" id="star3" name="rate" value="3"><label for="star3"></label>
+                            <input type="radio" id="star2" name="rate" value="2"><label for="star2"></label>
+                            <input type="radio" id="star1" name="rate" value="1"><label for="star1"></label>
+                        </div>
+                    </div>
+            
+            
+                    {% if user.id  is not None%}
+            
+                    <button class="button-50" style="margin-top:20px; display: flex;justify-content: center; text-align: center;">Gönder</button>
+                    {%else%}
+                    Yorum Eklemek için Kayıt Olunuz!
+                    {%endif%}
+                </form>
+            </div>
+            </div>
+        </div>
+
+    
+        
+        <div class="container">
+        {% for rs in comments %}
+        <div class="review-list">
+            <ul>
+                <li>
+                    <div class="d-flex">
+                        <div class="left">
+                            <span>
+                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="profile-pict-img img-fluid" alt="" />
+                            </span>
+                        </div>
+                        <div class="right">
+                            <h4>
+                                {{rs.user.username}}
+                                <span class="gig-rating text-body-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1792 1792" width="15" height="15">
+                                        <path
+                                        fill="currentColor"
+                                            d="M1728 647q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z"
+                                        ></path>
+                                    </svg>
+                                    {{rs.rate}}
+                                </span>
+                            </h4>
+                            <div class="review-description">
+                                <strong>{{rs.subject}}</strong>
+                            </div>
+                            <div class="review-description">
+                                <p>
+                                    {{rs.comment}}
+                                </p>
+                            </div>
+                            <span class="publish py-3 d-inline-block w-100">{{rs.create_at}}</span>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        {% endfor %}
+    </div>
+<!-- HTML !-->
+
+
+
+    <!-- ***** Comment Area End ***** -->
+
+    
     <!-- Add this script block at the end of your HTML template, just before the closing </body> tag -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
     $(document).ready(function() {
         $('.minus').click(function() {

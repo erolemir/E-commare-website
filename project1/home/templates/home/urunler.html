@@ -25,7 +25,35 @@
                 </div>
             </div>
         </div>
+
+        <script>
+
+            $(function() {
+              $("#query").autocomplete({
+                source: "/search_auto/",
+                select: function (event, ui) { //item selected
+                  AutoCompleteSelectHandler(event, ui)
+                },
+                minLength: 2,
+              });
+            });
+          
+            function AutoCompleteSelectHandler(event, ui)
+            {
+              var selectedObj = ui.item;
+            }
+          
+          </script>
         <!-- ***** Main Banner Area End ***** -->
+        <link rel="stylesheet" href="{% static 'home/css/search.css' %}">
+            <div class="center-content">
+                <form action="/search/" method="post">
+                    {% csrf_token %}
+                    <input id="query" name="query" type="text" placeholder="Search...">
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+
     
     
         <!-- ***** Products Area Starts ***** -->

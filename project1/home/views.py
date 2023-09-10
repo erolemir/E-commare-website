@@ -1,7 +1,10 @@
-from django.shortcuts import render,redirect,HttpResponse
+import json
+from django.shortcuts import render,redirect,HttpResponse , HttpResponseRedirect
 from .models import Setting,ContactFormu,ContactFormMessage
-from product.models import Product,Category,Images
+from product.models import Product,Category,Images,Comment
 from django.contrib import messages
+from product.views import addcomment
+from .forms import SearchForm
 
 # Create your views here.
 
@@ -69,7 +72,37 @@ def urunler(request):
 def urun_detay(request,id):
     urunler = Product.objects.get(pk=id)
     resimler = Images.objects.filter(product_id=id)
+    comments = Comment.objects.filter(product_id=id,status='True')
     context = {"urunler":urunler,
-               "resimler":resimler}
+               "resimler":resimler,
+               "comments":comments,}
     return render(request, "home/urun_detay.html",context)
     
+def product_search(request):
+    if request.method == 'POST':
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            category = Category.objects.all()
+            query = form.cleaned_data['query']
+            products = Product.objects.filter(title__icontains=query)
+            
+            context = {'products':products,
+                        'category':category,
+                        }
+            return render(request, 'home/product_search.html',context) 
+    return HttpResponseRedirect('/')
+
+def product_search_auto(request):
+  if request.is_ajax():
+    q = request.GET.get('term', '')
+    product = Product.objects.filter(title_iscontains=q)
+    results = []
+    for rs in product:
+      product_json = {}
+      product_json = rs.title
+      results.append(product_json)
+    data = json.dumps(results)
+  else:
+    data = 'fail'
+  mimetype = 'application/json'
+  return HttpResponse(data, mimetype)
