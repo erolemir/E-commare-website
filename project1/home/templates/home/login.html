@@ -1,0 +1,63 @@
+{% extends 'home/homebase.html' %}
+{% load static %}
+
+
+
+
+{% block title %} Giriş Yap {% endblock title%}
+
+
+
+
+{% block header %} {% include 'home/header.html' %} {% endblock %}
+
+{% block content %}
+<div class="page-heading about-page-heading" id="top">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="inner-content">
+                    <h2>Giriş Yap</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ***** Main Banner Area End ***** -->
+
+<!-- ***** Contact Area Starts ***** -->
+<div class="contact-us">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-heading">
+                    <h2>Giriş Yap</h2>
+                </div>
+                {%if messages %}
+                  {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                      {{ message }}
+                    </div>
+                  {% endfor %}
+                {% endif %}
+                <form method="post">
+
+                      {% csrf_token %}
+                      <p>Kullanıcı Adı: </p>
+                      <input type="text" name="username" placeholder="Kullanıcı Adı" >
+                      <p>Şifre: </p>
+                      <input type="password" name="password" placeholder="Şifre">
+                      <input type="submit" value="Login" class="btn btn-light" style="margin-top:30px;">
+
+                  </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ***** Contact Area Ends ***** -->
+
+
+
+{% endblock %}
+
+{% block footer %}{% include 'home/footer.html' %}{% endblock %}

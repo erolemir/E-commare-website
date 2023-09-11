@@ -10,12 +10,14 @@ class ImagesInline(admin.TabularInline):
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ["title", "status"]
     list_filter = ["status"]
+    prepopulated_fields = {'slug': ('title',)}
     
     
 class ProductAdmin(admin.ModelAdmin):
     list_display = ["title","category","price", "status"]
     list_filter = ["category","status"]
     inlines = [ImagesInline]
+    prepopulated_fields = {'slug': ('title',)}
     
     
 class ImagesAdmin(admin.ModelAdmin):

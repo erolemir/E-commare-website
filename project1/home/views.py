@@ -4,14 +4,15 @@ from .models import Setting,ContactFormu,ContactFormMessage
 from product.models import Product,Category,Images,Comment
 from django.contrib import messages
 from product.views import addcomment
-from .forms import SearchForm
+from .forms import SearchForm, SignUpForm
+from django.contrib.auth import authenticate, login as django_login, logout
 
 # Create your views here.
 
 def index(request):
     setting = Setting.objects.get()
      # ... Outfit kategorisinin ID'sini veya adını bulun
-    men_outfit_category = Category.objects.get(title="Men outfit")
+    men_outfit_category = Category.objects.get(title="Men Outfit")
     women_outfit_category = Category.objects.get(title="Women Outfit")
     kid_outfit_category = Category.objects.get(title="Kid Outfit")
 
@@ -83,26 +84,67 @@ def product_search(request):
         form = SearchForm(request.POST)
         if form.is_valid():
             category = Category.objects.all()
+            setting = Setting.objects.all()
             query = form.cleaned_data['query']
             products = Product.objects.filter(title__icontains=query)
             
             context = {'products':products,
                         'category':category,
+                        'setting':setting,
                         }
             return render(request, 'home/product_search.html',context) 
     return HttpResponseRedirect('/')
 
+
 def product_search_auto(request):
-  if request.is_ajax():
-    q = request.GET.get('term', '')
-    product = Product.objects.filter(title_iscontains=q)
-    results = []
-    for rs in product:
-      product_json = {}
-      product_json = rs.title
-      results.append(product_json)
-    data = json.dumps(results)
-  else:
-    data = 'fail'
-  mimetype = 'application/json'
-  return HttpResponse(data, mimetype)
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        q = request.GET.get('term', '')
+        products = Product.objects.filter(title__icontains=q)
+        results = [product.title for product in products]
+        data = json.dumps(results)
+    else:
+        data = 'fail'
+    mimetype = 'application/json'
+    return HttpResponse(data, mimetype)
+
+def login(request):
+    if request.method == 'POST':
+        username = request.POST["username"]
+        password = request.POST["password"]
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            django_login(request,user)
+            return HttpResponseRedirect('/')
+        else:
+            messages.warning(request,"Login Hatası! Kullanıcı adı veya şifre yanlış.")
+            return redirect ('login')
+            # Return an 'invalid login' error message.
+    return render(request, 'home/login.html')
+
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect('/')
+
+from django.contrib.auth import login as django_login
+
+# Your other imports and views...
+
+def signup(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            django_login(request, user)  # Use django_login instead of login
+        else:
+            form.errors
+            return redirect("signup")
+        return HttpResponseRedirect("/")
+    form = SignUpForm()
+    context = {'form': form}
+    return render(request, 'home/signup.html', context)
+
+
+

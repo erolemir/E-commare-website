@@ -13,6 +13,9 @@ urlpatterns = [
     path("urunler/<int:id>", views.urun_detay, name="urun_detay"),
     path('search/', views.product_search, name='product_search'),
     path('search_auto/', views.product_search_auto, name='product_search_auto'),
+    path('login/', views.login, name='login'),
+    path('signup/', views.signup, name='signup'),
+    path('logout/', views.logout_view, name='logout_view'),
     # ex: /home/5/
     #path("<int:question_id>/", views.detail, name="detail"),
 ]

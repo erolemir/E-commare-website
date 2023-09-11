@@ -18,9 +18,17 @@
 
     <link rel="stylesheet" href="{% static 'home/css/lightbox.css' %}">
 
-<!-- jQuery UI !-->
-<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    <script src=  
+    "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js">  
+        </script>  
+        
+        <script src=  
+    "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js">  
+        </script>  
+        
+        <link href=  
+    "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css"
+            rel="stylesheet" type="text/css" />  
 
     {% block extra_link %} {% endblock %}
 
@@ -31,11 +39,12 @@
     {% block header %}
     {% endblock  %}
 
+      
     {% block content %}
     {% endblock%}
 
     <!-- jQuery -->
-    <script src="{% static 'home/js/jquery-2.1.0.min.js' %}"></script>
+
 
     <!-- Bootstrap -->
     <script src="{% static 'home/js/popper.js' %}"></script>

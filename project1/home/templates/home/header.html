@@ -1,5 +1,7 @@
 {% load static %}
 
+{% block  extra_link%}<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />{% endblock  %}
+
 <header class="header-area header-sticky">
     <div class="container">
         <div class="row">
@@ -24,6 +26,13 @@
                                 <li><a href="{% url 'referances' %}">Referanslar</a></li>
                                 <li><a href="{% url 'iletisim' %}">İletisim</a></li>
                             </ul>
+                        {% if user.id is not None %}
+                        <li> <p style="margin-top:5%;">Hoşgeldin! -  <strong> {{user.username}} </strong></p></li>
+                        <li><a href="/logout/"><i class="fa-solid fa-arrow-right-from-bracket" ></i></a></li>
+                        {% else %}
+                        <li><a href="{% url 'login' %}"><i class="fa-regular fa-user" style="font-size:20px"></i></a></li>
+                        <li><a href="{% url 'signup' %}"><i class="fa-solid fa-user-plus" style="font-size:20px"></i></a></li>
+                        {% endif %}
                         </li>
                         
                     <a class='menu-trigger'>

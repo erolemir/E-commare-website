@@ -1,3 +1,4 @@
+from audioop import reverse
 from django.db import models
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.forms import ModelForm, TextInput , Textarea
@@ -14,7 +15,7 @@ class Category(models.Model):
     description = models.CharField(max_length=255)
     image = models.ImageField(blank=True, upload_to='images/')
     status = models.CharField(max_length=10, choices=STATUS)    
-    slug = models.SlugField()
+    slug = models.SlugField(null=False, unique=True)
     parent = models.ForeignKey('self', blank=True, null=True, related_name='children', on_delete=models.CASCADE)
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
@@ -28,6 +29,10 @@ class Category(models.Model):
             k = k.parent
         return '-'.join(full_path[::-1])
     
+    def get_absolute_url(self):
+        return reverse("category_detial", kwargs={"slug": self.slug})
+    
+    
 class Product(models.Model):
     STATUS= (
         ('True', 'Evet'),
@@ -40,7 +45,7 @@ class Product(models.Model):
     image = models.ImageField(blank=True, upload_to='images/')
     price = models.FloatField()
     amount = models.IntegerField()
-    slug = models.SlugField(default="Kıyafet")
+    slug = models.SlugField(unique=True)
     detail = RichTextUploadingField()
     status = models.CharField(max_length=10, choices=STATUS)    
     create_at = models.DateTimeField(auto_now_add=True)
@@ -49,6 +54,11 @@ class Product(models.Model):
     
     def __str__(self):
         return self.title
+    
+    def get_absolute_url(self):
+        return reverse("product_detial", kwargs={"slug": self.slug})
+    
+
     
 class Comment(models.Model):
     STATUS= (
