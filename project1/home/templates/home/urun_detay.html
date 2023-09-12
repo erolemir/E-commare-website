@@ -50,21 +50,29 @@
                     <div class="quote">
                         <i class="fa fa-quote-left"></i><p>{{urunler.description}}</p>
                     </div>
-                    <div class="quantity-content">
-                        <div class="left-content">
-                            <h6>Adet</h6>
-                        </div>
+                    
+                    <form action="/product/addtocard/{{urunler.id}}" method="post">
+                        {% csrf_token %}
+                        <div class="quantity-content">
+                            <div class="left-content">
+                                <h6>Adet</h6>
+                            </div>
+                            
+                        
+                            
                         <div class="right-content">
                             <div class="quantity buttons_added">
                                 <input type="button" value="-" class="minus"><input type="number" step="1" min="1" max="{{urunler.amount}}" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" pattern="" inputmode=""><input type="button" value="+" class="plus">
                             </div>
                         </div>
                     </div>
-                    <div class="total">
+                    <div class="total" >
                         <h4>{{urunler.price}}₺</h4>
-                        <div class="main-border-button"><a href="#">Satın Al</a></div>
+                        <div class="main-border-button"><a href="/order/addtocard/{{urunler.id}}">Sepete Ekle</a></div>
                     </div>
+                    </form>
                 </div>
+            </div>
                 {% for resim in resimler %}
                     <div class="card" style="width: 10rem; margin-top: 150px;">
                         <img src="{{ resim.images.url }}" class="card-img-top enlarge-image" alt="...">

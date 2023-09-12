@@ -1,11 +1,13 @@
 import json
 from django.shortcuts import render,redirect,HttpResponse , HttpResponseRedirect
+from order.models import ShopCard
 from .models import Setting,ContactFormu,ContactFormMessage , UserProfile
 from product.models import Product,Category,Images,Comment
 from django.contrib import messages
 from product.views import addcomment
 from .forms import SearchForm, SignUpForm
 from django.contrib.auth import authenticate, login as django_login, logout
+from django.utils.crypto import get_random_string
 
 # Create your views here.
 
@@ -21,6 +23,8 @@ def index(request):
     slider_man = Product.objects.filter(category=men_outfit_category)[:4]
     slider_women = Product.objects.filter(category=women_outfit_category)[:4]
     slider_kid = Product.objects.filter(category=kid_outfit_category)[:4]
+    current_user = request.user
+    request.session['cart_items'] = ShopCard.objects.filter(user_id=current_user.id).count() #Show Count of Items in Cart
     
     #veri çekmek için 
 

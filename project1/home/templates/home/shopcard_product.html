@@ -1,0 +1,110 @@
+{% extends 'home/homebase.html' %}
+{% load static %}
+
+
+
+
+{% block title %} Sepetim {% endblock title%}
+
+
+
+
+{% block header %} {% include 'home/header.html' %} {% endblock %}
+
+{% block content %}
+
+<section class="vh-100">
+  <div class="container h-100" >
+    <div class="row d-flex justify-content-center align-items-center h-100" >
+      <div class="col" style="margin-top:7rem;">
+        <p><span class="h2" style="margin-bottom:1rem;">Sepetim </span></p>
+        {%if messages %}
+        {%for message in messages %}
+            <div class="alert alert-{{message.tags}}" role="alert">
+                {{message}}
+            </div>
+        {%endfor%}
+    {%endif%}
+        {% for rs in shopcart%}
+        <div class="card mb-4">
+          <div class="card-body p-4">
+
+            <div class="row align-items-center">
+              <div class="col-md-2">
+                <img src="{{ rs.product.image.url }}"
+                  class="img-fluid" alt="Generic placeholder image">
+              </div>
+              <div class="col-md-2 d-flex justify-content-center">
+                <div>
+                  <p class="small text-muted mb-4 pb-2">Ürün</p>
+                  <p class="lead fw-normal mb-0">{{rs.product}}</p>
+                </div>
+              </div>
+              <div class="col-md-2 d-flex justify-content-center">
+                <div>
+                  <p class="small text-muted mb-4 pb-2">Miktar</p>
+                  <p class="lead fw-normal mb-0">{{rs.quantity}}</p>
+                </div>
+              </div>
+              <div class="col-md-2 d-flex justify-content-center">
+                <div>
+                  <p class="small text-muted mb-4 pb-2">Fiyat</p>
+                  <p class="lead fw-normal mb-0">{{ rs.total_price }}₺</p>
+                </div>
+              </div>
+              <div class="col-md-2 d-flex justify-content-center">
+                <div>
+                  <p class="small text-muted mb-4 pb-2">Sil</p>
+                  <a href="/order/deleteformcart/{{ rs.id }}" class="text-danger"><i class="fas fa-trash fa-lg"></i></a>
+
+                </div>
+              </div>
+              
+            
+              
+              <div class="col-md-2 d-flex justify-content-center">
+                <div>
+
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+        {%endfor%}
+
+        <div class="card mb-5">
+          <div class="card-body p-4">
+
+            <div class="float-end">
+              <p class="mb-0 me-5 d-flex align-items-center">
+                <span class="small text-muted me-2" style="margin-right:1rem;">Toplam Fiyat:</span> <span
+                  class="lead fw-normal">{{total}}₺</span>
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-end" >
+          <button type="button" class="btn btn-light btn-dark me-2 "><a href="{% url 'urunler' %}" class="text-light">Alışverişe Devam Et</a></button>
+          <button type="button" class="btn btn-info btn-lg ml-3"><a href="/order/orderproduct" class="text-dark">Ödeme Yap</a></button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+body {
+  background-color: #f5f5f5;
+}
+</style>
+
+{% endblock %}
+
+
+
+
+{% block footer %}{% include 'home/footer.html' %}{% endblock %}

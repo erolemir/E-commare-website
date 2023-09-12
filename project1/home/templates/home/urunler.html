@@ -28,14 +28,17 @@
 
        
       <!-- ***** Main Banner Area End ***** -->
-      <link rel="stylesheet" href="{% static 'home/css/search.css' %}">
-      <div class="center-content">
-          <form action="/search/" method="post">
-              {% csrf_token %}
-              <input id="query" name="query" type="text" placeholder="Search...">
-              <button type="submit">Search</button>
-          </form>
-      </div>
+      <form action="/search/" method="post">
+        {% csrf_token %}
+        <div class="input-group rounded col-md-3 " style="margin-left:43rem; margin-top:2rem;">
+          <input type="text" id="query" name="query "class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+          <span class="input-group-text border-0" id="search-addon">
+            <i class="fas fa-search"></i>
+          </span>
+        </div>
+
+       
+    </form>
 
       <script>
 
@@ -73,6 +76,20 @@
             </div>
             <div class="container" >
                 <div class="row">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-6" style="margin-left:24%">
+                        {%if messages %}
+                                {% for message in messages %}
+                                    <div class="alert alert-{{ message.tags }}">
+                                        {{ message }}
+                                    </div>
+                                {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                </div>
+
                     {% for urun in urunler %}
                     <div class="col-lg-4" >
                         <div class="item" >
@@ -80,8 +97,8 @@
                                 <div class="hover-content">
                                     <ul>
                                         <li><a href="/urunler/{{urun.id}}"><i class="fa fa-eye"></i></a></li>
-                                        <li><a href="single-product.html"><i class="fa fa-star"></i></a></li>
-                                        <li><a href="/addtocard/{{urun.id}}"><i class="fa fa-shopping-cart"></i></a></li>
+                                        <li><a href="/urunler/{{urun.id}}"><i class="fa fa-star"></i></a></li>
+                                        <li><a href="/order/addtocard/{{urun.id}}"><i class="fa fa-shopping-cart"></i></a></li>
                                     </ul>
                                 </div>
                                 <img src="{{urun.image.url}}" alt="">

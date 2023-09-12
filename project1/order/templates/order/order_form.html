@@ -1,0 +1,92 @@
+{% extends 'home/homebase.html' %}
+{% load static %}
+
+{% block title %} {{ setting.title }}{% endblock title%}
+
+{% block header %} {% include 'home/header.html' %} {% endblock %}
+
+{% block content %}
+<div class="container" style="margin-top:10%">
+    <div id="reviews" class="review-section">
+        <div class="row">
+            <!-- Siparişi Tamamla Section -->
+            <div class="col-md-6 mb-4">
+                <h4 class="mb-4">Siparişi Tamamla</h4>
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                <form method="post">
+                    {% csrf_token %}
+                    <!-- Username Input -->
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="username">Username:</label>
+                        <input type="text" id="username" class="form-control" name="username" value="{{ user.username }}" />
+                    </div>
+                    <!-- Address Input -->
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="address">Address:</label>
+                        <input type="text" id="address" class="form-control" name="address" value="{{ profile.address }}" />
+                    </div>
+                    <!-- Phone Input -->
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="phone">Phone:</label>
+                        <input type="text" id="phone" class="form-control" name="phone" value="{{ profile.phone }}" />
+                    </div>
+                    <!-- City Input -->
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="city">City:</label>
+                        <input type="text" id="city" class="form-control" name="city" value="{{ profile.city }}" />
+                    </div>
+                    <!-- Country Input -->
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="country">Country:</label>
+                        <input type="text" id="country" class="form-control" name="country" value="{{ profile.country }}" />
+                    </div>
+                    <!-- Submit button -->
+                    <button type="submit" class="btn btn-light btn-block">Place order</button>
+                </form>
+            </div>
+            <!-- Credit Card Section -->
+            <div class="col-md-6 mb-4">
+                <h4 class="mb-4">Credit Card</h4>
+                <!-- Total Input -->
+                <div class="form-outline mb-4">
+                    <label class="form-label" for="total">Total:</label>
+                    <input type="text" id="total" class="form-control" name="total" value="{{ total }}" />
+                </div>
+                <!-- Credit Card Holder Input -->
+                <div class="form-outline mb-4">
+                    <label class="form-label" for="cardholder">Credit Card Holder:</label>
+                    <input type="text" id="cardholder" class="form-control" name="holder" value="" />
+                </div>
+                <!-- Credit Card Number Input -->
+                <div class="form-outline mb-4">
+                    <label class="form-label" for="cardnumber">Credit Card Number:</label>
+                    <input type="text" id="cardnumber" class="form-control" name="number" value="" />
+                </div>
+                <!-- Expiry Date and Security Number Inputs (e.g., MM/YY and CVV) -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="expdate">Exp Date:</label>
+                            <input type="text" id="expdate" class="form-control" name="expdate" value="" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="secnumber">Security Number:</label>
+                            <input type="text" id="secnumber" class="form-control" name="secnumber" value="" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}{% include 'home/footer.html' %}{% endblock %}

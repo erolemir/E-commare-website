@@ -28,12 +28,14 @@
                             </ul>
                         {% if user.id is not None %}
                         <li class="scroll-to-section"> <strong><a href="/user/">{{user.username}}</a></strong></p></li>
-                        <li class="scroll-to-section"><a href="/logout/"><i class="fa-solid fa-arrow-right-from-bracket"></i></a></li>
+                        <li class="scroll-to-section"><a href="/order/shopcart/"><i class="fa-solid fa-bag-shopping"  style="font-size:18px"></i>{{request.session.cart_items}}</a></li>
+                        <li class="scroll-to-section"><a href="/logout/"><i class="fa-solid fa-arrow-right-from-bracket" ></i></a></li>
                         {% else %}
                         <li class="scroll-to-section"><a href="{% url 'login' %}"><i class="fa-regular fa-user" style="font-size:20px"></i></a></li>
                         <li class="scroll-to-section"><a href="{% url 'signup' %}"><i class="fa-solid fa-user-plus" style="font-size:20px"></i></a></li>
                         {% endif %}
                         </li>
+                        
                         
                     <a class='menu-trigger'>
                         <span>Menu</span>

@@ -1,7 +1,22 @@
      {% load static %}
      
      <!-- ***** Men Area Starts ***** -->
+     <div class="container">
+        <div class="row">
+            <div class="col-lg-6" style="margin-left:24%">
+        {%if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+        {% endif %}
+    </div>
+</div>
+</div>
+
       <section class="section" id="men">
+        
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
@@ -12,9 +27,11 @@
                 </div>
             </div>
         </div>
+        
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
+                    
                     <div class="men-item-carousel">
                         <div class="owl-men-item owl-carousel">
                             {% for men in slider_man %}
@@ -24,7 +41,7 @@
                                         <ul>
                                             <li><a href="/urunler/{{men.id}}"><i class="fa fa-eye"></i></a></li>
                                             <li><a href="/urunler/{{men.id}}"><i class="fa fa-star"></i></a></li>
-                                            <li><a href="/urunler/{{men.id}}"><i class="fa fa-shopping-cart"></i></a></li>
+                                            <li><a href="/order/addtocard/{{men.id}}"><i class="fa fa-shopping-cart"></i></a></li>
                                         </ul>
                                     </div>
                                     <img src="{{men.image.url}}" alt="">
@@ -74,7 +91,7 @@
                                         <ul>
                                             <li><a href="/urunler/{{women.id}}"><i class="fa fa-eye"></i></a></li>
                                             <li><a href="/urunler/{{women.id}}"><i class="fa fa-star"></i></a></li>
-                                            <li><a href="/urunler/{{women.id}}"><i class="fa fa-shopping-cart"></i></a></li>
+                                            <li><a href="/order/addtocard/{{women.id}}"><i class="fa fa-shopping-cart"></i></a></li>
                                         </ul>
                                     </div>
                                     <img src="{{women.image.url}}" alt="">
@@ -124,7 +141,7 @@
                                         <ul>
                                             <li><a href="/urunler/{{kid.id}}"><i class="fa fa-eye"></i></a></li>
                                             <li><a href="/urunler/{{kid.id}}"><i class="fa fa-star"></i></a></li>
-                                            <li><a href="/urunler/{{kid.id}}"><i class="fa fa-shopping-cart"></i></a></li>
+                                            <li><a href="/order/addtocard/{{kid.id}}"><i class="fa fa-shopping-cart"></i></a></li>
                                         </ul>
                                     </div>
                                     <img src="{{kid.image.url}}" alt="">
