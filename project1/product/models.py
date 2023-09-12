@@ -3,6 +3,7 @@ from django.db import models
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.forms import ModelForm, TextInput , Textarea
 from django.contrib.auth.models import User
+from django.utils.html import mark_safe
 
 # Create your models here.
 class Category(models.Model):
@@ -57,6 +58,13 @@ class Product(models.Model):
     
     def get_absolute_url(self):
         return reverse("product_detial", kwargs={"slug": self.slug})
+    
+    def image_tag(self):
+        if self.image:
+            return mark_safe('<img src="{}" width="50" height="50" />'.format(self.image.url))
+        else:
+            return "No Image"
+
     
 
     

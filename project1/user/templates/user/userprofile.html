@@ -1,0 +1,88 @@
+{% extends 'home/homebase.html' %}
+{% load static %}
+
+
+
+
+{% block title %} {{ profile.user.username }}{% endblock title%}
+
+
+
+
+{% block header %} {% include 'home/header.html' %} {% endblock %}
+
+{% block content %}
+
+     
+<div class="col-md-12" style="margin-top:6%">
+    <div class="card">
+        <div class="card-body">
+          <div class="d-flex flex-column align-items-center text-center">
+            <img src="{{profile.image.url}}" alt="Admin" class="rounded-circle" width="150">
+            <div class="mt-3">
+              <h4>{{profile.user.username}}</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    <div class="card mb-3">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-sm-3">
+            <h6 class="mb-0">Kullanıcı Adı</h6>
+          </div>
+          <div class="col-sm-9 text-secondary">
+            {{profile.user.username}}
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-sm-3">
+            <h6 class="mb-0">Email</h6>
+          </div>
+          <div class="col-sm-9 text-secondary">
+            {{profile.user.email}}
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-sm-3">
+            <h6 class="mb-0">Telefon Numarası</h6>
+          </div>
+          <div class="col-sm-9 text-secondary">
+            {{profile.phone}}
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-sm-3">
+            <h6 class="mb-0">Adres</h6>
+          </div>
+          <div class="col-sm-9 text-secondary">
+            {{profile.address}}
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-sm-3">
+            <h6 class="mb-0">Şehir</h6>
+          </div>
+          <div class="col-sm-9 text-secondary">
+            {{profile.city}}
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-sm-3">
+            <h6 class="mb-0">Ülke</h6>
+          </div>
+          <div class="col-sm-9 text-secondary">
+            {{profile.country}}
+          </div>
+        </div>
+      </div>
+    </div>
+    
+{% endblock %}
+
+{% block footer %}{% include 'home/footer.html' %}{% endblock %}

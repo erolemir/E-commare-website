@@ -27,11 +27,11 @@
                                 <li><a href="{% url 'iletisim' %}">İletisim</a></li>
                             </ul>
                         {% if user.id is not None %}
-                        <li> <p style="margin-top:5%;">Hoşgeldin! -  <strong> {{user.username}} </strong></p></li>
-                        <li><a href="/logout/"><i class="fa-solid fa-arrow-right-from-bracket" ></i></a></li>
+                        <li class="scroll-to-section"> <strong><a href="/user/">{{user.username}}</a></strong></p></li>
+                        <li class="scroll-to-section"><a href="/logout/"><i class="fa-solid fa-arrow-right-from-bracket"></i></a></li>
                         {% else %}
-                        <li><a href="{% url 'login' %}"><i class="fa-regular fa-user" style="font-size:20px"></i></a></li>
-                        <li><a href="{% url 'signup' %}"><i class="fa-solid fa-user-plus" style="font-size:20px"></i></a></li>
+                        <li class="scroll-to-section"><a href="{% url 'login' %}"><i class="fa-regular fa-user" style="font-size:20px"></i></a></li>
+                        <li class="scroll-to-section"><a href="{% url 'signup' %}"><i class="fa-solid fa-user-plus" style="font-size:20px"></i></a></li>
                         {% endif %}
                         </li>
                         

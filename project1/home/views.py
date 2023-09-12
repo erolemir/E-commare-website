@@ -1,6 +1,6 @@
 import json
 from django.shortcuts import render,redirect,HttpResponse , HttpResponseRedirect
-from .models import Setting,ContactFormu,ContactFormMessage
+from .models import Setting,ContactFormu,ContactFormMessage , UserProfile
 from product.models import Product,Category,Images,Comment
 from django.contrib import messages
 from product.views import addcomment
@@ -138,9 +138,17 @@ def signup(request):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             django_login(request, user)  # Use django_login instead of login
+            current_user = request.user
+            data= UserProfile()
+            data.user_id =current_user.id
+            data.image = "images/users/user.png"
+            data.save(
+            messages.success(request , "Sitemize Hoş Geldiniz")
+            )
         else:
             form.errors
             return redirect("signup")
+        
         return HttpResponseRedirect("/")
     form = SignUpForm()
     context = {'form': form}

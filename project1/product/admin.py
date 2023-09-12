@@ -14,10 +14,15 @@ class CategoryAdmin(admin.ModelAdmin):
     
     
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ["title","category","price", "status"]
+    list_display = ["title","category","price", "status","image_tag"]
     list_filter = ["category","status"]
-    inlines = [ImagesInline]
+    readonly_fields = ("image_tag",)
     prepopulated_fields = {'slug': ('title',)}
+    def image_tag(self,obj):
+        return obj.image_tag()
+
+   
+    image_tag.short_description = "Image"
     
     
 class ImagesAdmin(admin.ModelAdmin):
