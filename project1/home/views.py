@@ -1,7 +1,7 @@
 import json
 from django.shortcuts import render,redirect,HttpResponse , HttpResponseRedirect
 from order.models import ShopCard
-from .models import Setting,ContactFormu,ContactFormMessage , UserProfile
+from .models import Setting,ContactFormu,ContactFormMessage , UserProfile ,FAQ
 from product.models import Product,Category,Images,Comment
 from django.contrib import messages
 from product.views import addcomment
@@ -159,4 +159,7 @@ def signup(request):
     return render(request, 'home/signup.html', context)
 
 
-
+def sss(request):
+    sss = FAQ.objects.all()
+    context = {"sss":sss,}
+    return render(request, 'home/faq.html',context)

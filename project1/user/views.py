@@ -1,10 +1,12 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect ,HttpResponse
 from home.models import UserProfile
 from django.contrib import messages
+
+from product.models import Comment
 from .forms import UserUpdateForm,ProfileUpdateForm
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
-
+from django.contrib.auth.decorators import login_required
 
 def profile(request):
     profile = UserProfile.objects.get(user_id=request.user)
@@ -44,3 +46,17 @@ def change_password(request):
     else:
         form = PasswordChangeForm(request.user)
         return render(request,'user/change_password.html',{'form':form})
+    
+@login_required(login_url='/login') # Check login
+def comments(request):
+    current_user = request.user
+    comments = Comment.objects.filter(user_id=current_user.id)
+    context = {'comments':comments}
+    return render(request,'user/user_comments.html',context)
+
+@login_required(login_url='/login') # Check login
+def deletecomments(request,id):
+    current_user = request.user
+    Comment.objects.filter(id=id,user_id=current_user.id).delete()
+    messages.success(request,"Yorumunuz Silinmiştir")
+    return redirect('/user/comments')

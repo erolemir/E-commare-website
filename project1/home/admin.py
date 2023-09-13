@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Setting,ContactFormMessage,UserProfile,UserProfileForm
+from .models import Setting,ContactFormMessage,UserProfile,UserProfileForm,FAQ
 # Register your models here.
 
 class ContactForAdmin(admin.ModelAdmin):
@@ -20,7 +20,12 @@ class UserProfileAdmin(admin.ModelAdmin):
 
     user_name.short_description = "User"
     image_tag.short_description = "Image"
+    
+class FAQAdmin(admin.ModelAdmin):
+    list_display = ["question","answer","status"]
+    list_filter = ["status"]
 
 admin.site.register(Setting)
 admin.site.register(ContactFormMessage,ContactForAdmin)
 admin.site.register(UserProfile,UserProfileAdmin)
+admin.site.register(FAQ,FAQAdmin)

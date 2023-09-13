@@ -16,6 +16,7 @@ urlpatterns = [
     path('login/', views.login, name='login'),
     path('signup/', views.signup, name='signup'),
     path('logout/', views.logout_view, name='logout_view'),
+    path('sss/', views.sss, name='sss'),
     # ex: /home/5/
     #path("<int:question_id>/", views.detail, name="detail"),
 ]

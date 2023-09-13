@@ -12,26 +12,34 @@
 {% block header %} {% include 'home/header.html' %} {% endblock %}
 
 {% block content %}
-
-     
 <div class="col-md-12" style="margin-top:6%">
-    <div class="card">
-        <div class="card-body">
-          <div class="d-flex flex-column align-items-center text-center">
-            <div class="mb-3">
-              <button  class="btn btn-primary"><a href="{% url 'user_update' %}" class="text-light">Bilgileri Güncelle</a></button>
-              <button class="btn btn-secondary"><a href="{% url 'change_password' %}" class="text-light">Şifreyi Değiştir</a></button>
-          </div>
-            <img src="{{profile.image.url}}" alt="Admin" class="rounded-circle" width="150">
-            <div class="mt-3">
-              <h4>{{profile.user.username}}</h4>
-            </div>
-          </div>
-        </div>
-      </div>
-    <div class="card mb-3">
+  <div class="card">
       <div class="card-body">
-        <div class="row">
+          <div class="row">
+              <div class="col-md-3">
+                  <div class="list-group" >
+                      <a href="{% url 'profile' %}" class="list-group-item list-group-item-action">Kullanıcı Bilgileri</a>
+                      <a href="{% url 'user_update' %}" class="list-group-item list-group-item-action">Bilgileri Güncelle</a>
+                      <a href="{% url 'change_password' %}" class="list-group-item list-group-item-action">Şifreyi Değiştir</a>
+                      <a href="{% url 'comments' %}" class="list-group-item list-group-item-action">Yorumlarım</a>
+                      <a href="#" class="list-group-item list-group-item-action">Favorilerim</a>
+                  </div>
+              </div>
+              <div class="col-md-9">
+                  <!-- İçerik buraya gelecek -->
+                  <div class="d-flex flex-column align-items-center text-center" style="margin-right:20%">
+                      <img src="{{profile.image.url}}" alt="Admin" class="rounded-circle" width="150" >
+                      <div class="mt-3">
+                          <h4>{{profile.user.username}}</h4>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+    <div class="card mb-3 " >
+      <div class="card-body ">
+        <div class="row " >
           <div class="col-sm-3">
             <h6 class="mb-0">Kullanıcı Adı</h6>
           </div>
@@ -84,6 +92,7 @@
             {{profile.country}}
           </div>
         </div>
+        
       </div>
     </div>
     

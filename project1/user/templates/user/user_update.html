@@ -15,6 +15,16 @@
                         <img src="{{user.userprofile.image.url}}" alt="Admin" class="rounded-circle" width="150">
                     </div>
                 </div>
+                
+            </div>
+            <div class="col-md-12">
+                <div class="list-group" >
+                    <a href="{% url 'profile' %}" class="list-group-item list-group-item-action">Kullanıcı Bilgileri</a>
+                    <a href="{% url 'user_update' %}" class="list-group-item list-group-item-action">Bilgileri Güncelle</a>
+                    <a href="{% url 'change_password' %}" class="list-group-item list-group-item-action">Şifreyi Değiştir</a>
+                    <a href="{% url 'comments' %}" class="list-group-item list-group-item-action">Yorumlarım</a>
+                    <a href="#" class="list-group-item list-group-item-action">Favorilerim</a>
+                </div>
             </div>
         </div>
         <div class="col-md-8">

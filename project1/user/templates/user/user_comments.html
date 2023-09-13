@@ -1,0 +1,70 @@
+{% extends 'home/homebase.html' %}
+{% load static %}
+
+{% block title %} Yorumlarım | {{ user.username }}{% endblock %}
+
+{% block header %} {% include 'home/header.html' %} {% endblock %}
+
+{% block content %}
+<div class="col-md-12" style="margin-top:6%">
+  <div class="card">
+      <div class="card-body">
+          <div class="row">
+              <div class="col-md-3">
+                  <div class="list-group" >
+                      <a href="{% url 'profile' %}" class="list-group-item list-group-item-action">Kullanıcı Bilgileri</a>
+                      <a href="{% url 'user_update' %}" class="list-group-item list-group-item-action">Bilgileri Güncelle</a>
+                      <a href="{% url 'change_password' %}" class="list-group-item list-group-item-action">Şifreyi Değiştir</a>
+                      <a href="{% url 'comments' %}" class="list-group-item list-group-item-action">Yorumlarım</a>
+                      <a href="#" class="list-group-item list-group-item-action">Favorilerim</a>
+                  </div>
+              </div>
+              <div class="col-md-9">
+                  <!-- İçerik buraya gelecek -->
+                  <div class="d-flex flex-column align-items-center text-center" style="margin-right:20%">
+                      <img src="" alt="" class="rounded-circle" width="150" >
+                      <div class="mt-3">
+                          <h4>{{user.username}} Kullanıcısının Yorumları</h4>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Kullanıcı Adı</th>
+        <th>Ürün</th>
+        <th>Başlık</th>
+        <th>Yorum</th>
+        <th>Durum</th>
+        <th>Tarih</th>
+        <th>İşlemler</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for rs in comments %}
+        <tr>
+          <td>{{ user.username }}</td>
+          <td>
+          <a href= "/urunler/{{rs.product.id}}" class="text-dark">
+          <strong>{{ rs.product.title }}</strong>
+          </a>
+          </td>
+          <td>{{ rs.subject }}</td>
+          <td>{{ rs.comment }}</td>
+          <td>{{ rs.status }}</td>
+          <td>{{ rs.create_at }}</td>
+          <td><a href="/user/deletecomments/{{ rs.id }}" onclick="return confirm('Yorum Silinecek Emin Misiniz?')" class="btn btn-danger text-light">Sil</a></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+</div>
+
+{% endblock %}
+
+{% block footer %}{% include 'home/footer.html' %}{% endblock %}
