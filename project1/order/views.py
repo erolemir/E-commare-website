@@ -12,7 +12,7 @@ def order(request):
     return HttpResponse("Order Page")
 
 @login_required(login_url='/login') #Check Login
-def addtocard(request,id):
+def addtocard(request,id):  #Sepete Ekleme Fonksiyonu
     url = request.META.get('HTTP_REFERER') # get last url
     checkproduct=ShopCard.objects.filter(product_id=id) #check product in shopcart
     if checkproduct: #update quantity if product is already exists
@@ -60,7 +60,7 @@ def addtocard(request,id):
     return HttpResponseRedirect(url)
 
 @login_required(login_url='/login')
-def shopcart(request):
+def shopcart(request): # Sepet Fonksiyonu
     current_user = request.user
     shopcart = ShopCard.objects.filter(user_id=current_user.id)  # Doğru sorgu yapısı burada kullanılıyor
     request.session['cart_items'] = ShopCard.objects.filter(user_id=current_user.id).count() #Show Count of Items in Cart
@@ -73,7 +73,7 @@ def shopcart(request):
     return render(request, 'home/shopcard_product.html', context)
 
 @login_required(login_url='/login')
-def deleteformcart(request,id):
+def deleteformcart(request,id): # Sepetten silme fonksiyonu
     ShopCard.objects.filter(id=id).delete()
     current_user = request.user
     request.session['cart_items'] = ShopCard.objects.filter(user_id=current_user.id).count() #Show Count of Items in Cart
@@ -84,7 +84,7 @@ def deleteformcart(request,id):
 
 # ********* ALIŞVERİŞİ TAMAMLA *********
 @login_required(login_url='/login') #Check Login
-def orderproduct(request):
+def orderproduct(request): # Sİpariş tamamlama fonksiyonu
     current_user = request.user
     shopcart = ShopCard.objects.filter(user_id=current_user.id)
     total = 0
