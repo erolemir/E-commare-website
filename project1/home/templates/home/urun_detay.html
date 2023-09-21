@@ -71,13 +71,14 @@
                         <div class="main-border-button"><a href="/order/addtocard/{{urunler.id}}">Sepete Ekle</a></div>
                     </div>
                     </form>
-                </div>
-            </div>
-                {% for resim in resimler %}
-                    <div class="card" style="width: 10rem; margin-top: 150px;">
+                    {% for resim in resimler %}
+                    <div class="card" style="width: 10rem; margin-top: 150px; margin-bottom: 150px; margin-left:30px;">
                         <img src="{{ resim.images.url }}" class="card-img-top enlarge-image" alt="...">
                     </div>
-                {% endfor %}
+                    {% endfor %}
+                </div>
+            </div>
+                
 
                 <style>
                     .enlarge-image {
@@ -85,7 +86,7 @@
                     }
                 
                     .enlarge-image:hover {
-                        transform: scale(2); /* Enlarge the image to 120% when hovered */
+                        transform: scale(1.8); /* Enlarge the image to 120% when hovered */
                         cursor: pointer;
                          /* Change the cursor to indicate interactivity */
                     }

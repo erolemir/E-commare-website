@@ -11,6 +11,7 @@ from django.contrib import messages
 @login_required(login_url='/login')
 def addcomment(request,id):
     url = request.META.get('HTTP_REFERER') #get last url
+    
     if request.method=='POST':
         form = CommentForm(request.POST)
 
