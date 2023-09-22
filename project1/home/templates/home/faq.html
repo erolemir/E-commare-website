@@ -1,53 +1,67 @@
 {% extends 'home/homebase.html' %}
 {% load static %}
 
-
-
-
 {% block title %} SSS {% endblock title%}
-
-
-
 
 {% block header %} {% include 'home/header.html' %} {% endblock %}
 
 {% block content %}
-<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="/resources/demos/style.css">
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-
-     <!-- ***** Main Banner Area Start ***** -->
-     <div class="page-heading about-page-heading" id="top">
-      <div class="container">
-          <div class="row">
-              <div class="col-lg-12">
-                  <div class="inner-content">
-                      <h2>Sıkça Sorulan Sorular</h2>
-                      <span>Awesome, clean &amp; creative HTML5 Template</span>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
-  <!-- ***** Main Banner Area End ***** -->
-  
-
-  <script>
-    $( function() {
-      $( "#accordion" ).accordion();
-    } );
-    </script>
-    <div id="accordion">
-      {% for rs in sss%}
-      <h3>{{rs.question}}</h3>
-      <div>
-        <p>
-          {{rs.answer}}
-        </p>
-      </div>
-      {% endfor %}
+<!-- ***** Main Banner Area Start ***** -->
+<div class="page-heading about-page-heading" id="top">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="inner-content">
+                    <h2>Sıkça Sorulan Sorular</h2>
+                    <span>Awesome, clean &amp; creative HTML5 Template</span>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
+<!-- ***** Main Banner Area End ***** -->
+
+<div id="accordion">
+    {% for rs in sss %}
+    <div class="card">
+        <div class="card-header" id="heading{{ forloop.counter }}">
+            <h5 class="mb-0">
+                <button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{ forloop.counter }}"
+                    aria-expanded="true" aria-controls="collapse{{ forloop.counter }}">
+                    {{ rs.question }}
+                </button>
+            </h5>
+        </div>
+
+        <div id="collapse{{ forloop.counter }}" class="collapse {% if forloop.first %}show{% endif %}"
+            aria-labelledby="heading{{ forloop.counter }}" data-parent="#accordion">
+            <div class="card-body">
+                {{ rs.answer }}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<style>
+  .btn-link {
+      color: black !important; /* Başlıkları siyah yapar */
+      font-weight: bold; /* Başlıkları kalın yapar */
+  }
+</style>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.collapse').on('show.bs.collapse', function () {
+            $(this).prev().find('.btn-link').addClass('active');
+        });
+        $('.collapse').on('hide.bs.collapse', function () {
+            $(this).prev().find('.btn-link').removeClass('active');
+        });
+    });
+</script>
 
 {% endblock %}
 

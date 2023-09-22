@@ -78,7 +78,7 @@ def deleteformcart(request,id): # Sepetten silme fonksiyonu
     current_user = request.user
     request.session['cart_items'] = ShopCard.objects.filter(user_id=current_user.id).count() #Show Count of Items in Cart
     messages.success(request,"Ürün Başarı ile Sepetten Silinmiştir.")
-    return redirect("shopcart")
+    return render(request,"home/shopcard_product.html")
 
 
 
